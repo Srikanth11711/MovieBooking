@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css"
+      integrity="sha384-dpuaG1suU0eT09tx5plTaGMLBsfDLzUCCUXOY2j/LSvXYuG6Bqs43ALlhIqAJVRb"
+      crossorigin="anonymous">
+
+    <title>s.m.Shows</title>
+    <!--feavicon-->
+    <link rel="icon" href="6ccdfd15bbbd0afc8340281679e09e0e.jpg">
+    <style>
+         /* #ticket {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }  */
+        body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding-top: 70px; /* Adjust this value to the height of your navbar */
+    }
+
+    .ticket-container {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 350px;
+        padding: 20px;
+    }
+
+        
+
+
+      .ticket-container {
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          width: 350px;
+          padding: 20px;
+      }
+
+
+        .ticket-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .movie-poster {
+            width: 80px;
+            height: 100px;
+            border-radius: 5px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .movie-details {
+            flex-grow: 1;
+        }
+
+        .movie-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin: 0 0 5px 0;
+        }
+
+        .movie-info {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+        }
+
+        .qr-section {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .qr-section img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .ticket-details {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .print-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .print-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+</body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" style="position: fixed;top: 0;width: 100%; z-index: 1000;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><i class="bi bi-film"></i><svg
+          xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+          fill="currentColor" class="bi bi-film" viewBox="0 0 16 16">
+          <path
+            d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1h-2v2h2zm-2 3v2h2V4zm2 3h-2v2h2zm-2 3v2h2v-2zm2 3h-2v2h2z" />
+        </svg>&nbsp;&nbsp;<b>s.m.Shows</b></a>
+      <button class="navbar-toggler" type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse"
+        id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page"
+              href="home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+
+          
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact Us</a>
+          </li>
+
+        </ul>
+        
+      </div>
+    </div>
+  </nav>
+    <div class="ticket-container" id="ticket" >
+        <div class="ticket-header">
+            <img src="evil-dead-tragic-cellar-pt2um9gmqfc8u1ok.webp" alt="Movie Poster" class="movie-poster">
+            <div class="movie-details">
+                <p class="movie-title" style="display: flex; align-items: center;">Evil-Dead-Tragic-Cellar</p>
+                <p class="movie-info">English, 2D<br><span id="bookingDateTime"></span></p>
+                <p class="movie-info">Horror / Drama / Thriller</p>
+                <small class="text-body-secondary">2 hours 9 mins</small>
+            </div>
+        </div>
+        <!-- <p class="ticket-details" id="bookingInfo"></p> -->
+        <p class="ticket-details">Ticket Count: <span id="ticketCount"></span></p>
+        <p class="ticket-details">Total Amount: <span id="totalAmount">$</span></p>
+        <p class="ticket-details">Selected Seats: <span id="selectedSeats"></span></p>
+        <div class="qr-section">
+        <div class="qr-section">
+            <img src="qr.png" alt="QR Code">
+        </div>
+        <button class="print-button" onclick="printTicket()">Print Ticket</button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+      const date = localStorage.getItem('date');
+      const time = localStorage.getItem('time');
+      const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats')) || [];
+
+      document.getElementById('bookingDateTime').innerText = ` ${date || 'N/A'} | ${time || 'N/A'}`;
+       document.getElementById('selectedSeats').innerText = selectedSeats.length > 0 ? selectedSeats.join(', ') : 'General Class';
+        });
+  </script>
+  
+
+    <script>
+
+
+      // Function to fetch and display ticket details from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const ticketCount = urlParams.get('count');
+      const totalAmount = urlParams.get('total');
+      
+      // Display the ticket details on the page
+      document.getElementById('ticketCount').textContent = ticketCount || '0';
+      document.getElementById('totalAmount').textContent = totalAmount || '0';
+  
+      // Function to handle printing after ensuring data is populated
+      function printTicket() {
+          // Give a slight delay to ensure data is rendered before printing
+          setTimeout(() => {
+              window.print();
+          }, 500); // 500 milliseconds delay
+      }
+  </script>
+  
+    <script>
+        // Function to get URL parameters
+        function getQueryParams() {
+            const params = {};
+            window.location.search.substring(1).split("&").forEach(param => {
+                const [key, value] = param.split("=");
+                params[decodeURIComponent(key)] = decodeURIComponent(value.replace(/\+/g, ' '));
+            });
+            return params;
+        }
+    
+        const params = getQueryParams();
+    </script>
+     <script
+     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+     crossorigin="anonymous"></script>
+    
+</body>
+
+</html> 
+

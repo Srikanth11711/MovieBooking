@@ -1,0 +1,604 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--Google Fonts and Icons-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
+      rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css"
+      integrity="sha384-dpuaG1suU0eT09tx5plTaGMLBsfDLzUCCUXOY2j/LSvXYuG6Bqs43ALlhIqAJVRb"
+      crossorigin="anonymous">
+
+    <title>s.m.Shows</title>
+    <!--feavicon-->
+    <link rel="icon" href="6ccdfd15bbbd0afc8340281679e09e0e.jpg">
+    <style>
+      body {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+      .center {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          to right,
+          rgb(162, 216, 162),
+          rgb(102, 194, 102)
+        );
+      }
+      .tickets {
+        width: 700px;
+        height: fit-content;
+        border: 0.4mm solid rgba(0, 0, 0, 0.08);
+        border-radius: 3mm;
+        box-sizing: border-box;
+        padding: 10px;
+        font-family: poppins;
+        max-height: 96vh;
+        overflow: auto;
+        background: white;
+        box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+      }
+      .ticket-selector {
+        background: rgb(243, 243, 243);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 20px;
+      }
+      .head {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+      .title {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .seats {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        min-height: 150px;
+        position: relative;
+      }
+      .status {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+      .seats::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 220px;
+        height: 7px;
+        background: rgb(141, 198, 255);
+        border-radius: 0 0 3mm 3mm;
+        border-top: 0.3mm solid rgb(180, 180, 180);
+      }
+      .item {
+        font-size: 12px;
+        position: relative;
+      }
+      .item::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -12px;
+        transform: translate(0, -50%);
+        width: 10px;
+        height: 10px;
+        background: rgb(255, 255, 255);
+        outline: 0.2mm solid rgb(120, 120, 120);
+        border-radius: 0.3mm;
+      }
+      .item:nth-child(2)::before {
+        background: rgb(180, 180, 180);
+        outline: none;
+      }
+      .item:nth-child(3)::before {
+        background: rgb(28, 185, 120);
+        outline: none;
+      }
+      .all-seats {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-gap: 15px;
+        margin: 60px 0;
+        margin-top: 20px;
+        position: relative;
+      }
+      .seat {
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 0.5mm;
+        outline: 0.3mm solid rgb(180, 180, 180);
+        cursor: pointer;
+      }
+      .all-seats input:checked + label {
+        background: rgb(28, 185, 120);
+        outline: none;
+      }
+      .seat.booked {
+        background: rgb(180, 180, 180);
+        outline: none;
+      }
+      input {
+        display: none;
+      }
+ 
+      .timings {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 30px;
+      }
+      .selected-details {
+  margin-top: 20px;
+  font-size: 16px;
+  text-align: center;
+}
+
+      .dates {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .dates-item {
+        width: 50px;
+        height: 40px;
+        background: rgb(233, 233, 233);
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 10px 0;
+        border-radius: 2mm;
+        cursor: pointer;
+      }
+      .day {
+        font-size: 12px;
+      }
+      .times {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+      }
+      .time {
+        font-size: 14px;
+        width: fit-content;
+        padding: 7px 14px;
+        background: rgb(233, 233, 233);
+        border-radius: 2mm;
+        cursor: pointer;
+      }
+      .timings input:checked + label {
+        background: rgb(28, 185, 120);
+        color: white;
+      }
+      .price {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .total {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .total span {
+        font-size: 11px;
+        font-weight: 400;
+      }
+      .price button {
+        background: rgb(60, 60, 60);
+        color: white;
+        font-family: poppins;
+        font-size: 14px;
+        padding: 7px 14px;
+        border-radius: 2mm;
+        outline: none;
+        border: none;
+        cursor: pointer;
+      }
+      .booked {
+  background-color: gray !important; /* Use your preferred color */
+  color: white; /* Optional: adjust the text color to contrast with the background */
+}
+      .seat-row {
+  font-weight: bold;
+  margin: 10px 0;
+}
+.dates-item {
+    transition: background 0.3s;
+}
+
+.dates-item:hover {
+    background-color: rgb(220, 220, 220);
+}
+
+.dates input:checked + label.dates-item {
+    background-color: rgb(28, 185, 120);
+    color: white; /* Adjust text color for better contrast */
+}
+
+.time {
+    transition: background 0.3s;
+}
+
+.time:hover {
+    background-color: rgb(220, 220, 220);
+}
+
+.times input:checked + label.time {
+    background-color: rgb(28, 185, 120);
+    color: white; /* Adjust text color for better contrast */
+}
+
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><i class="bi bi-film"></i><svg
+            xmlns="http://www.w3.org/2000/svg" width="16"
+            height="16"
+            fill="currentColor" class="bi bi-film"
+            viewBox="0 0 16 16">
+            <path
+              d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1h-2v2h2zm-2 3v2h2V4zm2 3h-2v2h2zm-2 3v2h2v-2zm2 3h-2v2h2z" />
+          </svg>&nbsp;&nbsp;<b>s.m.Shows</b></a>
+        <button class="navbar-toggler" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse"
+          id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page"
+                href="home.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <!-- <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle"
+                type="buttonboot/cute-stranger-things-logo-in-black-up9ex91klrbnl4sf.webp"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Industry
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item"
+                    href="#">TollyWood</a></li>
+                <li><a class="dropdown-item"
+                    href="#">BollyWood</a></li>
+                <li><a class="dropdown-item"
+                    href="#">KolyWood</a></li>
+                <li><a class="dropdown-item"
+                    href="#">HollyWood</a></li>
+              </ul>
+            </div> -->
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact
+                Us</a>
+            </li>
+
+          </ul>
+          <!-- <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search"
+              placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success"
+              type="submit">Search</button>
+          </form> -->
+        </div>
+      </div>
+    </nav>
+    <div class="center">
+      <div class="tickets">
+        <div class="ticket-selector">
+          <!--add-->
+
+          <div class="head">
+            <div class="title"><b>Monstor_House</b></div>
+          </div>
+
+          <div class="seats">
+            <div class="status">
+              <div class="item">Available</div>
+              <div class="item">Booked</div>
+              <div class="item">Selected</div>
+            </div>
+
+            <input type="checkbox" name="tickets" id="s1" />
+            <!-- <label for="s1" class="seat booked"></label> -->
+
+            <!-- Bronze Section -->
+            <div class="seat-row">General Class</div>
+            <div class="all-seats">
+
+              <input type="checkbox" id="S1" /><label for="A1"
+                class="seat booked"></label>
+
+            </div>
+
+            <!-- Silver Section -->
+            <div class="seat-row">Second Class</div>
+            <div class="all-seats">
+
+              <label for>BI</label>
+              <input type="checkbox" id="B1" /><label for="B1"
+                class="seat"></label>
+              <input type="checkbox" id="B2" /><label for="B2"
+                class="seat"></label>
+              <input type="checkbox" id="B3" /><label for="B3"
+                class="seat"></label>
+              <input type="checkbox" id="B4" /><label for="B4"
+                class="seat"></label>
+              <input type="checkbox" id="B5" /><label for="B5"
+                class="seat booked"></label>
+              <input type="checkbox" id="B6" /><label for="B6"
+                class="seat"></label>
+              <input type="checkbox" id="B7" /><label for="B7"
+                class="seat"></label>
+              <input type="checkbox" id="B8" /><label for="B8"
+                class="seat"></label>
+              <input type="checkbox" id="B9" /><label for="B9"
+                class="seat"></label>
+              <label for>BII</label>
+              <input type="checkbox" id="B10" /><label for="B10"
+                class="seat"></label>
+
+              <input type="checkbox" id="B11" /><label for="B11"
+                class="seat"></label>
+              <input type="checkbox" id="B12" /><label for="B12"
+                class="seat"></label>
+              <input type="checkbox" id="B13" /><label for="B13"
+                class="seat booked"></label>
+              <input type="checkbox" id="B14" /><label for="B14"
+                class="seat"></label>
+              <input type="checkbox" id="B15" /><label for="B15"
+                class="seat"></label>
+              <input type="checkbox" id="B16" /><label for="B16"
+                class="seat"></label>
+              <input type="checkbox" id="B17" /><label for="B17"
+                class="seat booked"></label>
+              <input type="checkbox" id="B18" /><label for="B18"
+                class="seat"></label>
+
+            </div>
+
+            <!-- Gold Section -->
+            <div class="seat-row">First Class</div>
+            <div class="all-seats">
+              <label for>CI</label>
+
+              <input type="checkbox" id="C1" /><label for="C1"
+                class="seat booked"></label>
+              <input type="checkbox" id="C2" /><label for="C2"
+                class="seat"></label>
+              <input type="checkbox" id="C3" /><label for="C3"
+                class="seat"></label>
+              <input type="checkbox" id="C4" /><label for="C4"
+                class="seat"></label>
+              <input type="checkbox" id="C5" /><label for="C5"
+                class="seat"></label>
+              <input type="checkbox" id="C6" /><label for="C6"
+                class="seat booked"></label>
+              <input type="checkbox" id="C7" /><label for="C7"
+                class="seat"></label>
+              <input type="checkbox" id="C8" /><label for="C8"
+                class="seat"></label>
+              <input type="checkbox" id="C9" /><label for="C9"
+                class="seat"></label>
+              <label for>CII</label>
+              <input type="checkbox" id="C10" /><label for="C10"
+                class="seat"></label>
+
+              <input type="checkbox" id="C11" /><label for="C11"
+                class="seat"></label>
+              <input type="checkbox" id="C12" /><label for="C12"
+                class="seat booked"></label>
+              <input type="checkbox" id="C13" /><label for="C13"
+                class="seat"></label>
+              <input type="checkbox" id="C14" /><label for="C14"
+                class="seat"></label>
+              <input type="checkbox" id="C15" /><label for="C15"
+                class="seat"></label>
+              <input type="checkbox" id="C16" /><label for="C16"
+                class="seat"></label>
+              <input type="checkbox" id="C17" /><label for="C17"
+                class="seat"></label>
+              <input type="checkbox" id="C18" /><label for="C18"
+                class="seat booked"></label>
+
+            </div>
+          </div>
+          <form id="dateTimeForm">
+            <div class="timings">
+              <div class="dates" style="margin: 30px; gap: 10px;">
+                <input type="radio" name="date" id="d1" value="2024-10-11"
+                  checked />
+                <label for="d1" class="dates-item">
+                  <div class="day">Sun</div>
+                  <div class="date">11</div>
+                </label>
+                <input type="radio" id="d2" name="date" value="2024-10-12" />
+                <label class="dates-item" for="d2">
+                  <div class="day">Mon</div>
+                  <div class="date">12</div>
+                </label>
+                <input type="radio" id="d3" name="date" value="2024-10-13" />
+                <label class="dates-item" for="d3">
+                  <div class="day">Tue</div>
+                  <div class="date">13</div>
+                </label>
+                <input type="radio" id="d4" name="date" value="2024-10-14" />
+                <label class="dates-item" for="d4">
+                  <div class="day">Wed</div>
+                  <div class="date">14</div>
+                </label>
+                <input type="radio" id="d5" name="date" value="2024-10-15" />
+                <label class="dates-item" for="d5">
+                  <div class="day">Thu</div>
+                  <div class="date">15</div>
+                </label>
+                <input type="radio" id="d6" name="date" value="2024-10-16" />
+                <label class="dates-item" for="d6">
+                  <div class="day">Fri</div>
+                  <div class="date">16</div>
+                </label>
+                <input type="radio" id="d7" name="date" value="2024-10-17" />
+                <label class="dates-item" for="d7">
+                  <div class="day">Sat</div>
+                  <div class="date">17</div>
+                </label>
+              </div>
+              <div class="times">
+                <input type="radio" name="time" id="t1" value="11:00" checked />
+                <label for="t1" class="time">11:00</label>
+                <input type="radio" id="t2" name="time" value="14:30" />
+                <label for="t2" class="time">14:30</label>
+                <input type="radio" id="t3" name="time" value="18:00" />
+                <label for="t3" class="time">18:00</label>
+                <input type="radio" id="t4" name="time" value="21:30" />
+                <label for="t4" class="time">21:30</label>
+              </div>
+            </div>
+          </form>
+
+          <div class="price">
+            <div class="total">
+              <span> <span class="count">0</span> Tickets </span>
+              <div class="amount">0</div>
+            </div>
+            <button type="submit" id="bookButton" class="bg-red">Book</button>
+          </div>
+        </div>
+      </div>
+      <!-- <script>
+    
+  </script> -->
+      <script>
+    let seats = document.querySelector(".all-seats");
+      for (var i = 0; i < 59; i++) {
+        let randint = Math.floor(Math.random() * 2);
+        let booked = randint === 1 ? "booked" : "";
+        seats.insertAdjacentHTML(
+          "beforeend",
+          '<input type="checkbox" name="tickets" id="s' +
+            (i + 2) +
+            '" /><label for="s' +
+            (i + 2) +
+            '" class="seat ' +
+            booked +
+            '"></label>'
+        );
+      }
+    // Define seat prices for each section
+    const seatPrices = {
+      bronze: 100,
+      silver: 150,
+      gold: 200,
+    };
+  
+    // Update the ticket selection logic to include different prices for sections
+    const allSeats = document.querySelectorAll(".all-seats");
+    
+    allSeats.forEach((seatGroup, index) => {
+      const section = index === 0 ? 'bronze' : index === 1 ? 'silver' : 'gold';
+      const seats = seatGroup.querySelectorAll('input[type="checkbox"]');
+  
+      seats.forEach((seat) => {
+        seat.addEventListener('change', () => {
+          let amount = document.querySelector('.amount').innerHTML;
+          let count = document.querySelector('.count').innerHTML;
+          amount = Number(amount);
+          count = Number(count);
+  
+          if (seat.checked) {
+            count += 1;
+            amount += seatPrices[section];
+          } else {
+            count -= 1;
+            amount -= seatPrices[section];
+          }
+          document.querySelector('.amount').innerHTML = amount;
+          document.querySelector('.count').innerHTML = count;
+        });
+      });
+    });
+  </script>
+
+      <script>
+      document.getElementById('bookButton').addEventListener('click', () => {
+        const selectedSeats = [];
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            checkboxes.forEach((checkbox) => {
+                selectedSeats.push(checkbox.id);
+            });
+        const date = document.querySelector('input[name="date"]:checked').value;
+      const time = document.querySelector('input[name="time"]:checked').value;
+      localStorage.setItem('date', date);
+      localStorage.setItem('time', time);
+    const ticketCount = document.querySelector(".count").textContent;
+    const totalAmount = document.querySelector(".amount").textContent;
+    localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+    // Redirect to the new bill page with ticketCount and totalAmount as URL parameters
+    window.location.href = `bill_monstor.html?count=${ticketCount}&total=${totalAmount}`;
+  });
+</script>
+      <script>
+  for (let j = 1; j <= columns; j++) {
+    const cell = document.createElement('div');
+    cell.classList.add('cell');
+    cell.innerHTML = `c${j}`; // Label the cell with c1, c2, c3, etc.
+    row.appendChild(cell);
+}
+
+</script>
+
+    </body>
+  </html>
